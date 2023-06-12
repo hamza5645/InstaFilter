@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var blurAmount = 0.0
+    @State private var image: Image?
+    @State private var showingImagePicker = false
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-                .blur(radius: blurAmount)
+            image?
+                .resizable()
+                .scaledToFit()
             
-            Slider(value: $blurAmount, in: 0...20)
-                .onChange(of: blurAmount) { newValue in
-                    print("\(newValue)")
-                }
-            
-            Button("Random Blur") {
-                blurAmount = Double.random(in: 0...20)
+            Button("Select Image") {
+                showingImagePicker = true
             }
+        }
+        .sheet(isPresented: $showingImagePicker) {
+            ImagePicker()
         }
     }
 }
