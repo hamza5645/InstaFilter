@@ -54,6 +54,7 @@ struct ContentView: View {
                     Spacer()
                     
                     Button("Save", action: save)
+                        .disabled(imageIsValid == false)
                 }
             }
             .padding([.horizontal, .bottom])
@@ -112,6 +113,14 @@ struct ContentView: View {
     func setFilter(_ filter: CIFilter) {
         currentFilter = filter
         loadImage()
+    }
+    
+    var imageIsValid: Bool {
+        if inputImage == nil {
+            return false
+        } else {
+            return true
+        }
     }
 }
 
